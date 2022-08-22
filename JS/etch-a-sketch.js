@@ -24,11 +24,11 @@ function setSquareDimensions (targetElement, canvasSize, rowAmount) {
     });
 }
 
-function draw(targetElement, drawColor) {
+function draw (targetElement) {
     const blocks = document.querySelectorAll(targetElement);
     blocks.forEach(targetElement => {
         targetElement.addEventListener('mouseover', e => {
-        targetElement.style.backgroundColor = drawColor;
+        targetElement.style.backgroundColor = randomColor();
         })
     });
 }
@@ -42,12 +42,23 @@ function getCheckedUserInput() {
     return input;
 }
 
+function randomValue() {
+    let randomValue = Math.floor((Math.random()) * 255);
+    return randomValue;
+}
+
+function randomColor() {
+    let color = `rgb(${randomValue()},${randomValue()},${randomValue()})`;
+    return color;
+}
+
 createHTML('body', 'button', 'gridSize', 1);
 createHTML('body', 'div', 'container', 1);
 
 let canvasSize = 640;
+
 createGrid(16, 16, canvasSize);
-draw('div.column', 'black');
+draw('div.column');
 
 const button = document.querySelector('button');
 button.textContent = 'Set amount of squares';
@@ -61,5 +72,5 @@ button.addEventListener('click', e => {
     let userInput = getCheckedUserInput();
 
     createGrid(userInput, userInput, canvasSize);
-    draw('div.column', 'black');
+    draw('div.column');
 });
