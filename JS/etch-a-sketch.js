@@ -23,16 +23,6 @@ setGrid.addEventListener('click', e => {setSquares();});
 
 reset.addEventListener('click', e => {resetSquares();});
 
-
-
-function createGrid (rowAmount, columnAmount, canvasSize) {
-    for (let i = 0; i < (parseInt(rowAmount)); i++){
-        createHTML('div#canvas', 'div', 'row', 1);
-        createHTML('div#row', 'div', 'column', parseInt(columnAmount))
-    }
-    setSquareDimensions('div#column', canvasSize, rowAmount);
-}
-
 function createHTML (parentNode, childNode, className, numberOf) {
     for (let i = 0; i < (parseInt(numberOf)); i++) {
         const parents = document.querySelectorAll(parentNode);
@@ -42,13 +32,29 @@ function createHTML (parentNode, childNode, className, numberOf) {
     }
 }
 
-function setSquareDimensions (targetElement, canvasSize, rowAmount) {
-    const squares = document.querySelectorAll(targetElement);
-    let squareSize = (canvasSize - (2 * rowAmount))/ rowAmount;
-    squares.forEach(targetElement => {
-        targetElement.style.height = `${squareSize}px`;
-        targetElement.style.width = `${squareSize}px`;
-    });
+function createGrid (rowAmount, columnAmount, canvasSize) {
+    for (let i = 0; i < (parseInt(rowAmount)); i++){
+        createHTML('div#canvas', 'div', 'row', 1);
+        createHTML('div#row', 'div', 'column', parseInt(columnAmount))
+    }
+    setSquareDimensions('div#column', canvasSize, rowAmount);
+}
+
+function resetSquares() {
+    const canvas = document.querySelector('div#canvas');
+    canvas.remove();
+    createHTML('div#container', 'div', 'canvas', 1);
+    createGrid(16, 16, canvasSize);
+    draw('div#column', '#000000');
+}
+
+function setSquares() {
+    const canvas = document.querySelector('div#canvas');
+    canvas.remove();
+    createHTML('div#container', 'div', 'canvas', 1);
+    let userInput = getCheckedUserInput();
+    createGrid(userInput, userInput, canvasSize);
+    draw('div#column', '#000000');
 }
 
 function draw (targetElement, drawColor) {
@@ -64,6 +70,15 @@ function draw (targetElement, drawColor) {
                 targetElement.style.borderColor = drawColor
             }
         })
+    });
+}
+
+function setSquareDimensions (targetElement, canvasSize, rowAmount) {
+    const squares = document.querySelectorAll(targetElement);
+    let squareSize = (canvasSize - (2 * rowAmount))/ rowAmount;
+    squares.forEach(targetElement => {
+        targetElement.style.height = `${squareSize}px`;
+        targetElement.style.width = `${squareSize}px`;
     });
 }
 
@@ -84,21 +99,4 @@ function randomValue() {
 function randomColor() {
     let color = `rgb(${randomValue()},${randomValue()},${randomValue()})`;
     return color;
-}
-
-function setSquares() {
-    const canvas = document.querySelector('div#canvas');
-    canvas.remove();
-    createHTML('div#container', 'div', 'canvas', 1);
-    let userInput = getCheckedUserInput();
-    createGrid(userInput, userInput, canvasSize);
-    draw('div#column', '#000000');
-}
-
-function resetSquares() {
-    const canvas = document.querySelector('div#canvas');
-    canvas.remove();
-    createHTML('div#container', 'div', 'canvas', 1);
-    createGrid(16, 16, canvasSize);
-    draw('div#column', '#000000');
 }
