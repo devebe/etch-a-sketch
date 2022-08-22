@@ -17,7 +17,7 @@ function createHTML (parentNode, childNode, className, numberOf) {
 
 function setSquareDimensions (targetElement, canvasSize, rowAmount) {
     const squares = document.querySelectorAll(targetElement);
-    let squareSize = canvasSize / rowAmount;
+    let squareSize = (canvasSize - (2 * rowAmount))/ rowAmount;
     squares.forEach(targetElement => {
         targetElement.style.height = `${squareSize}px`;
         targetElement.style.width = `${squareSize}px`;
@@ -30,9 +30,11 @@ function draw (targetElement, drawColor) {
         targetElement.addEventListener('mouseover', e => {
             if (drawColor === 'random' || drawColor === undefined || drawColor === null) {
                 targetElement.style.backgroundColor = randomColor();
+                targetElement.style.borderColor = randomColor();
             }
             else {
                 targetElement.style.backgroundColor = drawColor;
+                targetElement.style.borderColor = drawColor
             }
         })
     });
@@ -40,7 +42,7 @@ function draw (targetElement, drawColor) {
 
 function getCheckedUserInput() {
     let input = parseInt(prompt('Please enter the number of squares you want on your canvas', ''));
-    while (input > 100) {
+    while (input > 100 || input == null || input == undefined || input == '') {
         alert("Please enter a number below 100");
         input = parseInt(prompt('Please enter the number of squares you want on your canvas', ''));
     }
@@ -76,7 +78,7 @@ createHTML('div#controls', 'button', 'reset', 1);
 
 
 const setGrid = document.querySelector('button#setGrid');
-setGrid.textContent = 'Set Resolution';
+setGrid.textContent = 'Set Grid';
 
 const reset = document.querySelector('button#reset');
 reset.textContent = 'Reset All';
