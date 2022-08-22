@@ -1,8 +1,9 @@
-function createGrid (rowAmount, columnAmount) {
+function createGrid (rowAmount, columnAmount, squareSize) {
     for (let i = 0; i < (parseInt(rowAmount)); i++){
         createHTML('div.container', 'div', 'row', 1);
         createHTML('div.row', 'div', 'column', parseInt(columnAmount))
     }
+    setSquareDimensions('div.column', squareSize)
 }
 
 function createHTML (parentNode, childNode, className, numberOf) {
@@ -23,5 +24,4 @@ function setSquareDimensions (square, size) {
 }
 
 createHTML('body', 'div', 'container', 1);
-createGrid(16,16);
-setSquareDimensions('div.column', 24);
+createGrid(16,16,24);
