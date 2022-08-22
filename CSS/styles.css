@@ -1,5 +1,5 @@
 * {
-    font-family: "Roboto Mono", monospace;
+    font-family: "Arial", sans-serif;
     font-size: 16px;
     line-height: 1.5;
     padding: 0;
@@ -14,6 +14,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 32px;
+    background-color: #8d51e1;
 }
 
 #container {
@@ -22,14 +23,16 @@ body {
     justify-content: center;
     align-items: center;
     padding: 32px;
-    background-color: #999999;
+    background-color: #bebebe;
+    border: 2px solid #ababab;
     border-radius: 24px;
-    box-shadow: 16px 16px 64px #00000020;
+    box-shadow: 24px 24px 48px #00000080;
 }
 
 #controls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 24px;
     padding-bottom: 32px;
     flex: 1;
@@ -37,9 +40,24 @@ body {
 }
 
 button {
-    width: 180px;
-    padding: 16px 8px;
-    border-radius: 8px;
+    width: 120px;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 8px 4px;
+    color: #ffffff;
+    background-color: #444444;
+    border: 2px solid #444444;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: 0.5s;
+}
+
+button:hover {
+    background-color: #000000;
+    border: 2px solid #000000;
+    transition: 0.2s;
+    box-shadow: 0px 4px 2px #757575;
 }
 
 #canvas {
@@ -53,5 +71,11 @@ button {
 
 #column {
     background-color: #FFFFFF;
+    border: 1px solid #cbcbcb;
     flex: 1;
+}
+
+p {
+    text-transform: uppercase;
+    color: #444444;
 }
