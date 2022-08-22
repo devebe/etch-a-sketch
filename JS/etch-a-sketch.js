@@ -1,9 +1,9 @@
-function createGrid (rowAmount, columnAmount, squareSize) {
+function createGrid (rowAmount, columnAmount, canvasSize) {
     for (let i = 0; i < (parseInt(rowAmount)); i++){
         createHTML('div.container', 'div', 'row', 1);
         createHTML('div.row', 'div', 'column', parseInt(columnAmount))
     }
-    setSquareDimensions('div.column', squareSize)
+    setSquareDimensions('div.column', canvasSize, rowAmount);
 }
 
 function createHTML (parentNode, childNode, className, numberOf) {
@@ -15,11 +15,12 @@ function createHTML (parentNode, childNode, className, numberOf) {
     }
 }
 
-function setSquareDimensions (targetElement, size) {
+function setSquareDimensions (targetElement, canvasSize, rowAmount) {
     const squares = document.querySelectorAll(targetElement);
+    let squareSize = (canvasSize - (rowAmount * 2)) / rowAmount;
     squares.forEach(targetElement => {
-        targetElement.style.height = `${size}px`;
-        targetElement.style.width = `${size}px`;
+        targetElement.style.height = `${squareSize}px`;
+        targetElement.style.width = `${squareSize}px`;
     });
 }
 
@@ -32,8 +33,21 @@ function draw(targetElement, drawColor) {
     });
 }
 
+function getCheckedUserInput() {
+    let input = parseInt(prompt('Please enter the number of squares you want', ''));
+    while (input > 100) {
+        alert("Please enter a number below 100");
+        input = parseInt(prompt('Please enter the number of squares you want', ''));
+    }
+    return input;
+}
+
 createHTML('body', 'button', 'gridSize', 1);
 createHTML('body', 'div', 'container', 1);
+
+let canvasSize = 640;
+createGrid(16, 16, canvasSize);
+draw('div.column', 'black');
 
 const button = document.querySelector('button');
 button.textContent = 'Set amount of squares';
@@ -44,9 +58,8 @@ button.addEventListener('click', e => {
 
     createHTML('body', 'div', 'container', 1);
     
-    let dimensions = parseInt(prompt('Please enter the number of squares you want', ''));
-    let squareSize = (640 - dimensions) / dimensions;
+    let userInput = getCheckedUserInput();
 
-    createGrid(dimensions, dimensions, squareSize);
+    createGrid(userInput, userInput, canvasSize);
     draw('div.column', 'black');
 });
