@@ -15,14 +15,20 @@ body {
     height: 800px;
     width: 800px;
     flex: 1;
+    gap: 1px;
 }
 
 .row {
     display: flex;
     flex-direction: row;
+    gap: 1px;
 }
 
 .column {
     border: 1px solid #757575;
     flex: 1;
+}
+
+.fill {
+    background-color: #000000;
 }
