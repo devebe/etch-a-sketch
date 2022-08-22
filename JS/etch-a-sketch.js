@@ -1,15 +1,19 @@
-function createGrid () {
-    createHTML('body', 'div', 'container', 1);
-    createHTML('div.container', 'div', 'square', 16);
+createHTML('body', 'div', 'container', 1);
+
+function createGrid (rowAmount, columnAmount) {
+    for (let i = 0; i < (parseInt(rowAmount)); i++){
+        createHTML('div.container', 'div', 'row', 1);
+        createHTML('div.row', 'div', 'column', parseInt(columnAmount))
+    }
 }
 
-function createHTML (parentNode,childNode,className,numberOf) {
+function createHTML (parentNode, childNode, className, numberOf) {
     for (let i = 0; i < (parseInt(numberOf)); i++) {
-        const parent = document.querySelector(parentNode);
+        const parents = document.querySelectorAll(parentNode);
         const child = document.createElement(childNode);
-        parent.appendChild(child);
+        parents.forEach(parentNode => {parentNode.appendChild(child)});
         child.classList.add(className);
     }
 }
 
-createGrid();
+createGrid(16,16);
