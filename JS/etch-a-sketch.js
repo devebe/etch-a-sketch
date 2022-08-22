@@ -1,6 +1,6 @@
 function createGrid (rowAmount, columnAmount, canvasSize) {
     for (let i = 0; i < (parseInt(rowAmount)); i++){
-        createHTML('div#container', 'div', 'row', 1);
+        createHTML('div#canvas', 'div', 'row', 1);
         createHTML('div#row', 'div', 'column', parseInt(columnAmount))
     }
     setSquareDimensions('div#column', canvasSize, rowAmount);
@@ -17,7 +17,7 @@ function createHTML (parentNode, childNode, className, numberOf) {
 
 function setSquareDimensions (targetElement, canvasSize, rowAmount) {
     const squares = document.querySelectorAll(targetElement);
-    let squareSize = (canvasSize - (rowAmount * 2)) / rowAmount;
+    let squareSize = canvasSize / rowAmount;
     squares.forEach(targetElement => {
         targetElement.style.height = `${squareSize}px`;
         targetElement.style.width = `${squareSize}px`;
@@ -39,10 +39,10 @@ function draw (targetElement, drawColor) {
 }
 
 function getCheckedUserInput() {
-    let input = parseInt(prompt('Please enter the number of squares you want', ''));
+    let input = parseInt(prompt('Please enter the number of squares you want on your canvas', ''));
     while (input > 100) {
         alert("Please enter a number below 100");
-        input = parseInt(prompt('Please enter the number of squares you want', ''));
+        input = parseInt(prompt('Please enter the number of squares you want on your canvas', ''));
     }
     return input;
 }
@@ -57,27 +57,47 @@ function randomColor() {
     return color;
 }
 
+function resetSquares () {
+    const canvas = document.querySelector('div#canvas');
+    canvas.remove();
+    createHTML('div#container', 'div', 'canvas', 1);
+    createGrid(16, 16, canvasSize);
+    draw('div#column', '#000000');
+}
+
+let canvasSize = 560;
+
 createHTML('body', 'div', 'container', 1);
 createHTML('div#container', 'div', 'controls', 1);
+createHTML('div#container', 'div', 'canvas', 1);
 createHTML('div#controls', 'button', 'setGrid', 1);
+createHTML('div#controls', 'p', 'title', 1);
 createHTML('div#controls', 'button', 'reset', 1);
 
-let canvasSize = 640;
+
+const setGrid = document.querySelector('button#setGrid');
+setGrid.textContent = 'Set Resolution';
+
+const reset = document.querySelector('button#reset');
+reset.textContent = 'Reset All';
+
+const para = document.querySelector('p#title');
+para.textContent = 'Etch-a-sketch'
+
 
 createGrid(16, 16, canvasSize);
-draw('div#column', 'blue');
+draw('div#column', '#000000');
 
-const button = document.querySelector('button');
-button.textContent = 'Set amount of squares';
+setGrid.addEventListener('click', e => {
+    const canvas = document.querySelector('div#canvas');
+    canvas.remove();
 
-button.addEventListener('click', e => {
-    const container = document.querySelector('div#container');
-    container.remove();
-
-    createHTML('body', 'div', 'container', 1);
+    createHTML('div#container', 'div', 'canvas', 1);
     
     let userInput = getCheckedUserInput();
 
     createGrid(userInput, userInput, canvasSize);
-    draw('div#column', 'blue');
+    draw('div#column', '#000000');
 });
+
+reset.addEventListener('click', e => {resetSquares();});
