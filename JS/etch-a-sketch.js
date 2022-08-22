@@ -15,11 +15,11 @@ function createHTML (parentNode, childNode, className, numberOf) {
     }
 }
 
-function setSquareDimensions (square, size) {
-    const squares = document.querySelectorAll(square);
-    squares.forEach(square => {
-        square.style.height = `${size}px`;
-        square.style.width = `${size}px`;
+function setSquareDimensions (targetElement, size) {
+    const squares = document.querySelectorAll(targetElement);
+    squares.forEach(targetElement => {
+        targetElement.style.height = `${size}px`;
+        targetElement.style.width = `${size}px`;
     });
 }
 
