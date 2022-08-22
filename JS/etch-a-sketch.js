@@ -1,9 +1,9 @@
 function createGrid (rowAmount, columnAmount, canvasSize) {
     for (let i = 0; i < (parseInt(rowAmount)); i++){
-        createHTML('div.container', 'div', 'row', 1);
-        createHTML('div.row', 'div', 'column', parseInt(columnAmount))
+        createHTML('div#container', 'div', 'row', 1);
+        createHTML('div#row', 'div', 'column', parseInt(columnAmount))
     }
-    setSquareDimensions('div.column', canvasSize, rowAmount);
+    setSquareDimensions('div#column', canvasSize, rowAmount);
 }
 
 function createHTML (parentNode, childNode, className, numberOf) {
@@ -11,7 +11,7 @@ function createHTML (parentNode, childNode, className, numberOf) {
         const parents = document.querySelectorAll(parentNode);
         const child = document.createElement(childNode);
         parents.forEach(parentNode => {parentNode.appendChild(child)});
-        child.classList.add(className);
+        child.setAttribute("id",`${className}`);
     }
 }
 
@@ -28,7 +28,7 @@ function draw (targetElement, drawColor) {
     const blocks = document.querySelectorAll(targetElement);
     blocks.forEach(targetElement => {
         targetElement.addEventListener('mouseover', e => {
-            if (drawColor === 'random' || drawColor === undefined || drawColor === null){
+            if (drawColor === 'random' || drawColor === undefined || drawColor === null) {
                 targetElement.style.backgroundColor = randomColor();
             }
             else {
@@ -57,19 +57,21 @@ function randomColor() {
     return color;
 }
 
-createHTML('body', 'button', 'gridSize', 1);
 createHTML('body', 'div', 'container', 1);
+createHTML('div#container', 'div', 'controls', 1);
+createHTML('div#controls', 'button', 'setGrid', 1);
+createHTML('div#controls', 'button', 'reset', 1);
 
 let canvasSize = 640;
 
 createGrid(16, 16, canvasSize);
-draw('div.column', 'blue');
+draw('div#column', 'blue');
 
 const button = document.querySelector('button');
 button.textContent = 'Set amount of squares';
 
 button.addEventListener('click', e => {
-    const container = document.querySelector('div.container');
+    const container = document.querySelector('div#container');
     container.remove();
 
     createHTML('body', 'div', 'container', 1);
@@ -77,5 +79,5 @@ button.addEventListener('click', e => {
     let userInput = getCheckedUserInput();
 
     createGrid(userInput, userInput, canvasSize);
-    draw('div.column', 'blue');
+    draw('div#column', 'blue');
 });
