@@ -24,4 +24,12 @@ function setSquareDimensions (targetElement, size) {
 }
 
 createHTML('body', 'div', 'container', 1);
-createGrid(16,16,24);
+createGrid(16,16,16);
+
+const targetElement = 'div.column';
+const blocks = document.querySelectorAll(targetElement);
+blocks.forEach(targetElement => {
+    targetElement.addEventListener('mouseover', e => {
+        targetElement.classList.add('fill');
+    })
+});
